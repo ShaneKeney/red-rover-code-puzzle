@@ -1,0 +1,11 @@
+- email
+- externalId
+- id
+- name
+- type
+ - customFields
+  - c1
+  - c2
+  - c3
+ - id
+ - name

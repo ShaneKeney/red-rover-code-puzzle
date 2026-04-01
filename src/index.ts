@@ -1,10 +1,16 @@
 import SAMPLE_DATA from "./data/sample.js";
 import { writeToFile, outputLine } from "./utils.js";
 import { OUTPUT_DIR } from "./config.js";
+import {
+  createNaryAlphabeticalTree,
+  NaryAlphabeticalTree,
+  TreeNode,
+} from "./Tree/index.js";
 
 // Sample data:
 // "(id, name, email, type(id, name, customFields(c1, c2, c3)), externalId)"
 
+// Part 1:
 /**
  * First part of the puzzle is to parse the sample data
  * and output the fields in order they appear.  Output should
@@ -18,9 +24,7 @@ import { OUTPUT_DIR } from "./config.js";
  * Assumptions based on the puzzle prompt:
  * - I can assume that the sample data is valid and well-formed. aka I don't need to write validation logic to check for invalid string values.
  **/
-
-// Part 1:
-function parseInputString(input: string): string {
+function parseInputStringInPlace(input: string): string {
   // The most straightforward brute force way to approach the first output of this puzzle is to
   // just iterate through each character in the input string and output the fields in order they appear.
 
@@ -54,8 +58,35 @@ function parseInputString(input: string): string {
       fieldName += char;
     }
   }
+
   return output;
 }
 
-writeToFile(`${OUTPUT_DIR}/output-1.txt`, parseInputString(SAMPLE_DATA));
-console.log(parseInputString(SAMPLE_DATA));
+writeToFile(`${OUTPUT_DIR}/output-1.txt`, parseInputStringInPlace(SAMPLE_DATA));
+console.log(parseInputStringInPlace(SAMPLE_DATA));
+
+// Part 2:
+/**
+ * The second part of the puzzle is to parse the sample data but instead of outputting the fields in order they appear,
+ * we should output the fields in alphabetical order within the same nesting level.
+ *
+ * General notes:
+ * - Same type of input string and implications as Part 1 above with the implication of alphabetical order within the same nesting level.
+ * - Some data structure that stores the fields so that we can sort them alphabetically within the same nesting level.  Initially thinking
+ *   of some type of tree data structure where the fields are the nodes and the nesting level is the depth of the tree.
+ */
+const tree = createNaryAlphabeticalTree(SAMPLE_DATA);
+console.log("Tree before sorting:");
+console.log("--------------------------------\n");
+tree.printTree();
+
+console.log("\n");
+console.log("Tree after sorting:");
+console.log("--------------------------------\n");
+
+tree.sortTreeToAlphabeticalOrder();
+tree.printTree();
+
+console.log("\n");
+
+writeToFile(`${OUTPUT_DIR}/output-2.txt`, tree.printTreeAsString());
