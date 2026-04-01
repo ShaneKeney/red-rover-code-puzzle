@@ -2,9 +2,7 @@ import SAMPLE_DATA from "./data/sample.js";
 import { writeToFile, outputLine } from "./utils.js";
 import { OUTPUT_DIR } from "./config.js";
 import {
-  createNaryAlphabeticalTree,
-  NaryAlphabeticalTree,
-  TreeNode,
+  createNaryAlphabeticalTree
 } from "./Tree/index.js";
 
 // Sample data:
